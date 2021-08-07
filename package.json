@@ -1,0 +1,54 @@
+{
+  "name": "the-todo-list",
+  "version": "1.0.0",
+  "description": "Todo list app",
+  "main": "src",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch",
+    "start": "webpack serve --open",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryan3738/the-todo-list.git"
+  },
+  "keywords": [
+    "todo",
+    "productivity"
+  ],
+  "author": "Ryan Fraser",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ryan3738/the-todo-list/issues"
+  },
+  "homepage": "https://github.com/ryan3738/the-todo-list#readme",
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "css-loader": "^6.2.0",
+    "eslint": "^7.8.1",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-config-wesbos": "^1.0.1",
+    "eslint-plugin-html": "^6.1.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react-hooks": "^4.1.2",
+    "html-webpack-plugin": "^5.3.2",
+    "jest": "^27.0.5",
+    "prettier": "^2.1.1",
+    "style-loader": "^3.2.1",
+    "webpack": "^5.48.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "date-fns": "^2.23.0"
+  }
+}
