@@ -180,26 +180,6 @@ html[xmlns] .clearfix {
 	Layout & Framework
 ===================================================== */
 
-/*
-=====================================================
-	Dynamic Displays
-===================================================== */
-/* :root {
-  --grid-size: 50;
-  --color-50: #defdf9;
-  --color-100: #bbf1ec;
-  --color-200: #96e6de;
-  --color-300: #6edad0;
-  --color-400: #49cfc3;
-  --color-500: #30b6aa;
-  --color-600: #208e84;
-  --color-700: #10665e;
-  --color-800: #003e39;
-  --color-900: #001715;
-
-
-} */
-
 :root {
   --color-50: #edf1fc;
   --color-100: #cfd5e3;
@@ -306,12 +286,13 @@ html[xmlns] .clearfix {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   min-height: 100vh;
   width: 100%;
   height: 100%;
   background: var(--color-50);
   color: black;
+  transition: all 0.1s;
   /* padding: 1rem; */
   /* margin: 1rem; */
 }
@@ -322,9 +303,25 @@ html[xmlns] .clearfix {
   justify-content: flex-start;
   align-items: flex-start;
   width: 25%;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   padding: 1rem;
   background: var(--color-100);
+}
+
+.project {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-radius: 0.25rem;
+  width: 100%;
+  height: auto;
+  transition: all 0.1s;
+}
+
+.project:hover {
+  background: var(--color-200);
 }
 
 .currentProject {
@@ -333,7 +330,8 @@ html[xmlns] .clearfix {
   justify-content: flex-start;
   align-items: flex-start;
   width: 75%;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   padding: 1rem;
 }
 
@@ -349,9 +347,10 @@ html[xmlns] .clearfix {
 }
 
 /* Form styles */
-fieldset {
+form {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 label {
@@ -363,7 +362,7 @@ label {
 }
 
 input {
-  margin: 0.5rem;
+  margin: 0.5rem 0.5rem 0.5rem 0;
   padding: 0.5rem;
   width: auto;
   display: flex;
@@ -383,8 +382,12 @@ input[type="checkbox"] {
   position: relative;
 }
 
+.hidden {
+  display: none;
+}
+
 .btn {
-  font-size: 2rem;
+  font-size: 1.5rem;
   border: none;
   border-radius: var(--radius);
   cursor: pointer;
@@ -393,26 +396,32 @@ input[type="checkbox"] {
   /* margin: 1rem; */
   /* aspect-ratio: 1; */
   padding: 0.25rem;
-  margin: 2rem 0;
-  background: var(--cyan);
+  margin: 0.5rem 0.5rem 0.5rem 0;
+  background: none;
   color: var(black);
   transition: all 0.1s;
-  border: 0.125rem solid var(var(--cyan));
-  box-shadow: var(--box-shadow);
+  /* border: 0.125rem solid var(var(--cyan)); */
+  /* box-shadow: var(--box-shadow); */
   opacity: 1;
 }
 
 .btn:hover {
   opacity: 0.8;
-  padding: 0.5rem;
-  margin: 1.75rem;
+  background-color: var(--color-200);
+  /* padding: 0.5rem; */
+  /* margin: 1.75rem; */
   /* color: yellow; */
 }
 
 .btn:active,
 .btn:focus {
-  opacity: 0.7;
+  opacity: 0.6;
   /* margin: 1.5rem; */
-  outline: 0.25rem solid var(--indigo);
+  /* outline: 0.25rem solid var(--indigo); */
   /* color: var(--color-500); */
 }
+
+/*
+=====================================================
+	Dynamic Displays
+===================================================== */
