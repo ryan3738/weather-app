@@ -1,8 +1,8 @@
 import './style.css';
-import ui from './ui';
+import renderPage from './renderPage';
 
-function component() {
-  return ui();
+function appPage() {
+  return renderPage();
 }
 
-document.body.appendChild(component());
+document.body.appendChild(appPage());

@@ -6,7 +6,7 @@ import { myProjects, createProject } from './project';
 const displayProjects = (projects, container) => {
   console.log('DISPLAY PROJECTS', projects);
   for (const project of projects) {
-    container.appendChild(createProjectUI(project));
+    container.appendChild(renderProject(project));
   }
 };
 
@@ -126,8 +126,9 @@ function toggleHidden(ids) {
   }
 }
 
-function createProjectUI(project) {
+const renderProject = (project) => {
   const projectContainer = document.createElement('div');
+  console.log(project);
   // const projectTitle = document.createElement('h3');
   projectContainer.classList.add('project');
   // projectTitle.innerHTML = title || 'New Project';
@@ -136,9 +137,19 @@ function createProjectUI(project) {
   projectContainer.appendChild(createButton(project.title));
   projectContainer.appendChild(createButton('X'));
   return projectContainer;
-}
+};
 
-function createTaskUI(title) {
+const renderProjectList = (projects) => {
+  // const projectsContainer = document.querySelector('#projectsContainer');
+  const projectsContainer = document.getElementById('projectsContainer');
+  console.log('ProjectsContainer', projectsContainer);
+  projects.forEach((project) => {
+    console.log('project', project);
+    // projectsContainer.appendChild(renderProject(project));
+  });
+};
+
+function renderTask(title) {
   const task = document.createElement('div');
   const taskTitle = document.createElement('h2');
 
@@ -149,21 +160,21 @@ function createTaskUI(title) {
   return task;
 }
 
+const renderProjectsLayout = () => {
 
+  
+};
 
-function ui() {
+function renderPage() {
   const main = document.createElement('div');
   const projectsContainer = document.createElement('div');
   projectsContainer.classList.add('projectsContainer');
   projectsContainer.id = 'projectsContainer';
-
-  const currentProject = document.createElement('div');
-  const title = document.createElement('h1');
   const projectsTitle = document.createElement('h2');
 
   // UI for users projects
-  projectsTitle.innerHTML = 'Projects';
 
+  projectsTitle.innerHTML = 'Projects';
   projectsContainer.appendChild(projectsTitle);
   // Placeholders
   displayProjects(myProjects, projectsContainer);
@@ -186,14 +197,16 @@ function ui() {
   );
 
   // UI for currently selected project with lists of todos
+  const title = document.createElement('h1');
+  const currentProject = document.createElement('div');
   title.innerHTML = 'Current Project';
   title.classList.add = 'title';
   currentProject.classList.add('currentProject');
   currentProject.appendChild(title);
 
-  currentProject.appendChild(createTaskUI('Task 2'));
-  currentProject.appendChild(createTaskUI('Task 3'));
-  currentProject.appendChild(createTaskUI());
+  currentProject.appendChild(renderTask('Task 2'));
+  currentProject.appendChild(renderTask('Task 3'));
+  currentProject.appendChild(renderTask());
   currentProject.appendChild(
     createButton(
       'Add Task +',
@@ -232,9 +245,9 @@ function ui() {
   main.appendChild(projectsContainer);
   main.appendChild(currentProject);
 
+  renderProjectList(myProjects);
+
   return main;
 }
 
-// document.body.appendChild(ui());
-
-export default ui;
+export default renderPage;
