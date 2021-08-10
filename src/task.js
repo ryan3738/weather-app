@@ -1,3 +1,5 @@
+import { getId, formToObject } from './util';
+
 // Make functions with ability to create and delete todos in a projects
 
 class Task {
@@ -19,4 +21,19 @@ class Task {
   }
 }
 
-export { Task };
+const createTask = (form, myProjects) => {
+  // do stuff here
+  const id = getId(myProjects);
+  const formObject = formToObject(form);
+  const taskObject = new Task(
+    id,
+    formObject.title,
+    formObject.description,
+    formObject.dueDate
+  );
+  console.log(taskObject);
+  myProjects.push(taskObject);
+  //   updateLibrary(bookObject);
+};
+
+export { Task, createTask };
