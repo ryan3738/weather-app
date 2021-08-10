@@ -19,7 +19,7 @@ class Project {
   }
 }
 
-function createProject(form) {
+const createProject = (form) => {
   // do stuff here
   const id = getId(myProjects);
   const formObject = formToObject(form);
@@ -27,7 +27,7 @@ function createProject(form) {
   console.log(projectObject);
   myProjects.push(projectObject);
   //   updateLibrary(bookObject);
-}
+};
 
 export { myProjects, createProject };
 
