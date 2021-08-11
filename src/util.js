@@ -1,6 +1,6 @@
 // * Silly function that can be removed
-const printMe = () => {
-  console.log('I get called from print.js!', this);
+const printMe = (event) => {
+  console.log('This is the default printMe() onClick function!', event);
 };
 
 function getId(array) {
@@ -15,7 +15,6 @@ function getId(array) {
 
 function formToObject(form) {
   const newObject = {};
-  console.log(newObject);
   for (const eachInput of form) {
     let { name, value, type } = eachInput;
     if (type === 'number') {
