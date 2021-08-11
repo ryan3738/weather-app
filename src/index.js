@@ -1,8 +1,8 @@
 import './style.css';
-import renderPage from './renderPage';
+import renderPage, { render } from './renderPage';
 
 function appPage() {
   return renderPage();
 }
 
-document.body.appendChild(appPage());
+appPage();
