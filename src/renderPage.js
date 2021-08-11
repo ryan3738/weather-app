@@ -1,71 +1,29 @@
-import { myProjects, createProject } from './project';
+import { getProjects } from './storage';
 import createForms from './forms';
-import printMe from './util';
+import { createButton } from './util';
+import { deleteProject } from './project';
 
 //  Create button function with option for large and small buttons
 // Create different ui function components
 
-function createButton(text, size, type, onClick, id) {
-  const btn = document.createElement('button');
-  const buttonText = text || '';
-  btn.innerHTML = buttonText;
-  btn.onclick = onClick || printMe;
-  btn.classList.add('btn');
-  btn.setAttribute('title', buttonText);
-  if (id) {
-    btn.id = id;
-  }
-  if (type === 'submit') {
-    btn.setAttribute('type', 'submit');
-  }
-  if (!type || type === 'button') {
-    btn.setAttribute('type', 'button');
-  }
-  if (size === 'sm') {
-    btn.classList.add('btn-sm');
-  }
-  return btn;
-}
-
-// submitNewBookButton.onclick = function (event) {
-//   event.preventDefault();
-//   const { form } = event.target;
-//   addBookToLibrary(form);
-//   randomizeForm();
-// };
-
-function toggleHidden(ids) {
-  // if (ids.length < 1) {
-  //   return;
-  // }
-  console.log('toggleHidden ids', ids);
-  for (const id of ids) {
-    console.log('id', id);
-    const element = document.getElementById(id);
-    console.log(element);
-    if (element) {
-      if (element.classList.contains('hidden')) {
-        element.classList.remove('hidden');
-      } else {
-        element.classList.add('hidden');
-      }
-    }
-  }
-}
-
 // * Render the projects and task components
 const render = (() => {
   const projectsListContainer = document.createElement('div');
+  const tasksListContainer = document.createElement('div');
   const projectContainer = (project) => {
     const container = document.createElement('div');
-    console.log(project);
     // const projectTitle = document.createElement('h3');
     container.classList.add('project');
     // projectTitle.innerHTML = title || 'New Project';
     // projectContainer.appendChild(projectTitle);
     container.id = project.id;
+    const deleteButton = createButton('X', 'sm', 'button');
+    deleteButton.onclick = (event) => {
+      deleteProject(event);
+    };
+
     container.appendChild(createButton(project.title));
-    container.appendChild(createButton('X'));
+    container.appendChild(deleteButton);
     return container;
   };
   const projectsLayout = (parent) => {
@@ -79,26 +37,40 @@ const render = (() => {
     projectsContainer.appendChild(projectsListContainer);
 
     // TODO Put in projects form
-    projectsContainer.appendChild(
-      createButton(
-        'Add Project +',
-        'lg',
-        'button',
-        () => {
-          toggleHidden(['newProjectForm', 'addProjectButton']);
-        },
-        'addProjectButton'
-      )
-    );
+    // projectsContainer.appendChild(
+    //   createButton(
+    //     'Add Project +',
+    //     'lg',
+    //     'button',
+    //     () => {
+    //       toggleHidden(['newProjectForm', 'addProjectButton']);
+    //     },
+    //     'addProjectButton'
+    //   )
+    // );
 
-    projectsContainer.appendChild(createForms().newProject());
+    projectsContainer.appendChild(createForms.newProject());
     parent.appendChild(projectsContainer);
   };
   const projectsList = (projects) => {
-    projects.forEach((project) => {
+    projects?.forEach((project) => {
       console.log('project', project);
       projectsListContainer.appendChild(projectContainer(project));
     });
+  };
+  const deleteProjectsList = () => {
+    //  Delete projects list from dom
+    console.log('Cleaning up old projects...');
+    const oldList = projectsListContainer.querySelectorAll('div');
+    oldList.forEach((project) => {
+      project.remove();
+    });
+    console.log('Bye bye old projects...');
+  };
+  const updateProjectsList = (array) => {
+    // Update the projects list by deleting and then repopulating
+    deleteProjectsList();
+    projectsList(array);
   };
   const taskContainer = (title) => {
     const task = document.createElement('div');
@@ -134,10 +106,36 @@ const render = (() => {
     // );
 
     // TODO Put in tasks form
-    currentProject.appendChild(createForms().newTask());
+    currentProject.appendChild(createForms.newTask());
     parent.appendChild(currentProject);
   };
-  return { projectsLayout, tasksLayout, projectsList };
+  const tasksList = (tasks) => {
+    tasks?.forEach((task) => {
+      tasksListContainer.appendChild(taskContainer(task));
+    });
+  };
+  const deleteTasksList = () => {
+    //  Delete tasks list from dom
+    console.log('Cleaning up old tasks...');
+    const oldList = tasksListContainer.querySelectorAll('div');
+    oldList.forEach((task) => {
+      task.remove();
+    });
+    console.log('Bye bye old tasks...');
+  };
+  const updateTasksList = (array) => {
+    // Update the tasks list by deleting and then repopulating
+    deleteTasksList();
+    tasksList(array);
+  };
+
+  return {
+    projectsLayout,
+    tasksLayout,
+    projectsList,
+    updateProjectsList,
+    updateTasksList,
+  };
 })();
 
 // * Render the main page component
@@ -148,9 +146,11 @@ function renderPage() {
   main.classList.add('main');
   render.projectsLayout(main);
   render.tasksLayout(main);
-  render.projectsList(myProjects);
+  render.updateProjectsList(getProjects());
 
   return main;
 }
 
 export default renderPage;
+
+export { render };

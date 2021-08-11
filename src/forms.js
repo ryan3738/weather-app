@@ -1,6 +1,9 @@
 import { createButton, toggleHidden } from './util';
+import { createProject } from './project';
+import { render } from './renderPage';
+import { getProjects } from './storage';
 
-const createForms = () => {
+const createForms = (() => {
   // const projectsListContainer = document.createElement('div');
 
   // submitNewBookButton.onclick = function (event) {
@@ -11,33 +14,42 @@ const createForms = () => {
   // };
 
   const formContainer = (fields, id, cancel, submit) => {
-    const container = document.createElement('form');
-    container.classList.add('form');
+    const container = document.createElement('div');
+    const form = document.createElement('form');
+    form.classList.add('form');
     // formContainer.classList.add('hidden');
 
     if (id) {
       container.id = id;
     }
 
+    for (const field of fields) {
+      form.appendChild(field);
+    }
+
     const buttonContainer = document.createElement('div');
 
-    for (const field of fields) {
-      container.appendChild(field);
-    }
-    buttonContainer.appendChild(createButton('submit', 'sm', 'submit', submit));
+    const submitButton = createButton('submit', 'sm', 'submit');
+    submitButton.onclick = function (event) {
+      event.preventDefault();
+      const { form } = event.target;
+      createProject(form);
+      render.updateProjectsList(getProjects());
+    };
+    buttonContainer.appendChild(submitButton);
     buttonContainer.appendChild(createButton('cancel', 'sm', 'button', cancel));
 
-    container.appendChild(buttonContainer);
+    form.appendChild(buttonContainer);
 
     // console.log('this is this', this);
-    return container;
+    return form;
   };
 
   const projectFields = () => {
     const formFields = [];
     const title = document.createElement('input');
     title.setAttribute('type', 'text');
-    title.setAttribute('name', 'Title');
+    title.setAttribute('name', 'title');
     title.setAttribute('placeholder', 'Project Name');
     title.setAttribute('required', true);
     formFields.push(title);
@@ -51,7 +63,7 @@ const createForms = () => {
     const title = document.createElement('input');
     title.setAttribute('type', 'text');
     title.setAttribute('title', 'Task Name');
-    title.setAttribute('name', 'Title');
+    title.setAttribute('name', 'title');
     title.setAttribute('placeholder', 'Task Name');
     title.setAttribute('required', true);
     fields.push(title);
@@ -59,7 +71,7 @@ const createForms = () => {
     const description = document.createElement('input');
     description.setAttribute('type', 'text');
     description.setAttribute('title', 'Task Description');
-    description.setAttribute('name', 'Description');
+    description.setAttribute('name', 'description');
     description.setAttribute('placeholder', 'Description');
     description.setAttribute('required', false);
     fields.push(description);
@@ -101,6 +113,6 @@ const createForms = () => {
   };
 
   return { formContainer, projectFields, taskFields, newProject, newTask };
-};
+})();
 
 export default createForms;
