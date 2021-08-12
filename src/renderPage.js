@@ -1,5 +1,6 @@
 import { de } from 'date-fns/locale';
-import { getProjects, getProject } from './storage';
+import { add } from 'date-fns/esm';
+import { getProjects, getProject, addProject, addTask } from './storage';
 import createForms from './forms';
 import { createButton } from './util';
 import { deleteProject } from './project';
@@ -20,6 +21,7 @@ const render = (() => {
     container.id = project.id;
     const deleteButton = createButton('X', 'sm', 'button');
     deleteButton.title = 'Delete project';
+    deleteButton.classList.add('deleteBtn');
     deleteButton.onclick = (event) => {
       const newProjectList = deleteProject(event);
       render.updateProjectsList(newProjectList);
@@ -48,16 +50,16 @@ const render = (() => {
     projectsListContainer.id = 'projectsListContainer';
     projectsContainer.appendChild(projectsListContainer);
 
-    // TODO Put in projects form
-    projectsContainer.appendChild(
-      createButton(
-        'Add Project +',
-        'lg',
-        'button',
-        createForms.toggleProjectForm,
-        'addProjectButton'
-      )
+    const addProjectButton = createButton(
+      '+',
+      'lg',
+      'button',
+      createForms.toggleProjectForm,
+      'addProjectButton'
     );
+    addProjectButton.title = 'Add project';
+    addProjectButton.classList.add('addBtn');
+    projectsContainer.appendChild(addProjectButton);
 
     projectsContainer.appendChild(createForms.newProject());
     parent.appendChild(projectsContainer);
@@ -94,8 +96,8 @@ const render = (() => {
     container.classList.add('task');
     container.id = task.id;
 
-    const completeButton = createButton('', 'sm', 'button');
-    completeButton.title = 'Mark Task Complete';
+    const completeButton = createButton('✓', 'sm', 'button');
+    completeButton.title = `Toggle ${task.title} Complete`;
     completeButton.classList.add('taskComplete');
     completeButton.onclick = (event) => {
       const newTaskList = toggleTaskComplete(event);
@@ -104,25 +106,26 @@ const render = (() => {
     container.appendChild(completeButton);
 
     const title = document.createElement('div');
-    title.title = 'Task Title';
+    title.title = task.title;
     title.innerText = task.title;
     title.classList.add('taskTitle');
     container.appendChild(title);
 
     const description = document.createElement('div');
-    description.title = 'Task Description';
+    description.title = `${task.title} Description`;
     description.innerText = task.description;
     description.classList.add('taskDescription');
     container.appendChild(description);
 
     const dueDate = document.createElement('div');
-    dueDate.title = 'Task Due Date';
+    dueDate.title = `${task.title} Due Date`;
     dueDate.innerText = task.dueDate;
     dueDate.classList.add('taskDueDate');
     container.appendChild(dueDate);
 
     const deleteButton = createButton('X', 'sm', 'button');
-    deleteButton.title = 'Delete Task';
+    deleteButton.title = `Delete ${task.title}`;
+    deleteButton.classList.add('deleteBtn');
     deleteButton.onclick = (event) => {
       const newTaskList = deleteTask(event);
       render.updateTasksList(newTaskList);
@@ -136,7 +139,7 @@ const render = (() => {
     currentProject.classList.add('currentProject');
     currentProject.title = 'Current Project';
 
-    const currentProjectTitle = document.createElement('h1');
+    const currentProjectTitle = document.createElement('div');
     currentProjectTitle.innerHTML = 'Current Project';
     currentProjectTitle.classList.add = 'title';
     currentProjectTitle.id = 'currentProjectTitle';
@@ -146,16 +149,16 @@ const render = (() => {
     tasksListContainer.id = 'tasksListContainer';
     currentProject.appendChild(tasksListContainer);
 
-    // TODO put in add project button
-    currentProject.appendChild(
-      createButton(
-        'Add Task +',
-        'lg',
-        'button',
-        createForms.toggleTaskForm,
-        'addTaskButton'
-      )
+    const addTaskButton = createButton(
+      '+',
+      'lg',
+      'button',
+      createForms.toggleTaskForm,
+      'addTaskButton'
     );
+    addTaskButton.title = 'Add Task';
+    addTaskButton.classList.add('addBtn');
+    currentProject.appendChild(addTaskButton);
 
     // TODO Put in tasks form
     currentProject.appendChild(createForms.newTask());

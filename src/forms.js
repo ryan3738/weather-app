@@ -9,7 +9,7 @@ const createForms = (() => {
     const form = document.createElement('form');
     form.classList.add('form');
     // TODO remove after done testing
-    // form.classList.add('hidden');
+    form.classList.add('hidden');
 
     if (id) {
       form.id = id;
