@@ -6,6 +6,7 @@ const printMe = (event) => {
 function getId(array) {
   // Create function that checks if id exists and assigns next availabe value
   const arr = array;
+  console.log('Searching', arr, 'for id');
   let id = 0;
   while (arr.some((e) => e.id === id)) {
     id += 1;

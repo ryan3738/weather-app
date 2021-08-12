@@ -1,47 +1,30 @@
-import { createButton, toggleHidden } from './util';
+import { createButton, formToObject, toggleHidden } from './util';
 import { createProject } from './project';
+import { createTask } from './task';
 import { render } from './renderPage';
-import { getProjects } from './storage';
+import { getProject, getProjects } from './storage';
 
 const createForms = (() => {
-  // const projectsListContainer = document.createElement('div');
-
-  // submitNewBookButton.onclick = function (event) {
-  //   event.preventDefault();
-  //   const { form } = event.target;
-  //   addBookToLibrary(form);
-  //   randomizeForm();
-  // };
-
   const formContainer = (fields, id, cancel, submit) => {
-    const container = document.createElement('div');
     const form = document.createElement('form');
     form.classList.add('form');
-    // formContainer.classList.add('hidden');
+    // TODO remove after done testing
+    // form.classList.add('hidden');
 
     if (id) {
-      container.id = id;
+      form.id = id;
     }
-
     for (const field of fields) {
       form.appendChild(field);
     }
 
     const buttonContainer = document.createElement('div');
-
-    const submitButton = createButton('submit', 'sm', 'submit');
-    submitButton.onclick = function (event) {
-      event.preventDefault();
-      const { form } = event.target;
-      createProject(form);
-      render.updateProjectsList(getProjects());
-    };
+    const submitButton = createButton('submit', 'sm', 'submit', submit);
+    const cancelButton = createButton('cancel', 'sm', 'button', cancel);
     buttonContainer.appendChild(submitButton);
-    buttonContainer.appendChild(createButton('cancel', 'sm', 'button', cancel));
-
+    buttonContainer.appendChild(cancelButton);
     form.appendChild(buttonContainer);
 
-    // console.log('this is this', this);
     return form;
   };
 
@@ -87,32 +70,55 @@ const createForms = (() => {
     return fields;
   };
 
+  const toggleProjectForm = () => {
+    toggleHidden(['newProjectForm', 'addProjectButton']);
+  };
+
   const newProject = () => {
+    const submitNewProject = (event) => {
+      event.preventDefault();
+      const { form } = event.target;
+      createProject(formToObject(form));
+      render.updateProjectsList(getProjects());
+    };
     const newProjectForm = formContainer(
       projectFields(),
       'newProjectForm',
-      () => {
-        toggleHidden(['newProjectForm', 'addProjectButton']);
-      }
+      toggleProjectForm,
+      submitNewProject
     );
-
     return newProjectForm;
+  };
+
+  const toggleTaskForm = () => {
+    toggleHidden(['newTaskForm', 'addTaskButton']);
   };
 
   const newTask = () => {
-    const newProjectForm = formContainer(
+    const submitNewTask = (event) => {
+      event.preventDefault();
+      const { form } = event.target;
+      const formObject = formToObject(form);
+      const { id } = event.target.parentElement.parentElement.parentElement;
+      console.log('THIS IS THE PROJECT ID & TASK FORM', id, form);
+      createTask(id, formObject);
+      render.updateTasksList(getProject(id).tasks);
+    };
+    const newTaskForm = formContainer(
       taskFields(),
       'newTaskForm',
-      'addTaskButton',
-      () => {
-        toggleHidden(['newTaskForm', 'addTaskButton']);
-      }
+      toggleTaskForm,
+      submitNewTask
     );
-
-    return newProjectForm;
+    return newTaskForm;
   };
 
-  return { formContainer, projectFields, taskFields, newProject, newTask };
+  return {
+    newProject,
+    newTask,
+    toggleProjectForm,
+    toggleTaskForm,
+  };
 })();
 
 export default createForms;
