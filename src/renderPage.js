@@ -94,20 +94,32 @@ const render = (() => {
     container.classList.add('task');
     container.id = task.id;
 
+    const completeButton = createButton('', 'sm', 'button');
+    completeButton.title = 'Mark Task Complete';
+    completeButton.classList.add('taskComplete');
+    completeButton.onclick = (event) => {
+      const newTaskList = toggleTaskComplete(event);
+      render.updateTasksList(newTaskList);
+    };
+    container.appendChild(completeButton);
+
     const title = document.createElement('div');
     title.title = 'Task Title';
     title.innerText = task.title;
     title.classList.add('taskTitle');
+    container.appendChild(title);
 
     const description = document.createElement('div');
     description.title = 'Task Description';
     description.innerText = task.description;
     description.classList.add('taskDescription');
+    container.appendChild(description);
 
     const dueDate = document.createElement('div');
     dueDate.title = 'Task Due Date';
     dueDate.innerText = task.dueDate;
     dueDate.classList.add('taskDueDate');
+    container.appendChild(dueDate);
 
     const deleteButton = createButton('X', 'sm', 'button');
     deleteButton.title = 'Delete Task';
@@ -115,10 +127,6 @@ const render = (() => {
       const newTaskList = deleteTask(event);
       render.updateTasksList(newTaskList);
     };
-
-    container.appendChild(title);
-    container.appendChild(description);
-    container.appendChild(dueDate);
     container.appendChild(deleteButton);
     return container;
   };
