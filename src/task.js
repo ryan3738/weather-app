@@ -1,4 +1,4 @@
-import { getId, formToObject } from './util';
+import { getId } from './util';
 import { getProject, addTask, removeTask, getTasks } from './storage';
 
 // Make functions with ability to create and delete todos in a project
