@@ -87,12 +87,14 @@ const deleteProject = (event) => {
   const shouldDelete = window.confirm(
     'Are you sure you want to delete this project?'
   );
+  let newProjectsList = getProjects();
 
   if (shouldDelete) {
     // Go ahead and delete it
-    const newProjectList = removeProject(id);
-    return newProjectList;
+    newProjectsList = removeProject(id);
+    return newProjectsList;
   }
+  return newProjectsList;
 };
 
 export { createProject, deleteProject, Project, getDefaultProject };
