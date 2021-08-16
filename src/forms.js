@@ -5,6 +5,10 @@ import { render } from './renderPage';
 import { getProject, getProjects } from './storage';
 
 const createForms = (() => {
+  const resetForm = (id) => {
+    document.getElementById(id).reset();
+  };
+
   const formContainer = (fields, id, cancel, submit) => {
     const form = document.createElement('form');
     form.classList.add('form');
@@ -80,6 +84,7 @@ const createForms = (() => {
       const { form } = event.target;
       createProject(formToObject(form));
       render.updateProjectsList(getProjects());
+      resetForm(form.id);
     };
     const newProjectForm = formContainer(
       projectFields(),
@@ -103,6 +108,7 @@ const createForms = (() => {
       console.log('THIS IS THE PROJECT ID & TASK FORM', id, form);
       createTask(id, formObject);
       render.updateTasksList(getProject(id).tasks);
+      resetForm(form.id);
     };
     const newTaskForm = formContainer(
       taskFields(),
