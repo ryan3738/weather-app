@@ -1,7 +1,7 @@
 import { getId, formToObject } from './util';
-import { getProject, addTask, removeTask } from './storage';
+import { getProject, addTask, removeTask, getTasks } from './storage';
 
-// Make functions with ability to create and delete todos in a projects
+// Make functions with ability to create and delete todos in a project
 
 class Task {
   constructor(
@@ -23,21 +23,6 @@ class Task {
   }
 }
 
-// const createTask = (form, myProjects) => {
-//   // do stuff here
-//   const id = getId(myProjects);
-//   const formObject = formToObject(form);
-//   const taskObject = new Task(
-//     id,
-//     formObject.title,
-//     formObject.description,
-//     formObject.dueDate
-//   );
-//   console.log(taskObject);
-//   myProjects.push(taskObject);
-//   //   updateLibrary(bookObject);
-// };
-
 const createTask = (projectId, task) => {
   // Create a project here, add to storage
   const project = getProject(projectId);
@@ -53,19 +38,17 @@ const deleteTask = (event) => {
   const { id: taskId } = event.target.parentElement;
   const { id: projectId } =
     event.target.parentElement.parentElement.parentElement;
-  // const shouldDelete = window.confirm(
-  //   'Are you sure you want to delete this project?'
-  // );
+  const shouldDelete = window.confirm(
+    'Are you sure you want to delete this project?'
+  );
+  let newTaskList = getTasks(projectId);
 
-  console.log('Delete task', taskId, 'from project:', projectId);
-
-  const shouldDeleteTask = true;
-
-  if (shouldDeleteTask) {
+  if (shouldDelete) {
     // Go ahead and delete it
-    const newTaskList = removeTask(projectId, taskId);
+    newTaskList = removeTask(projectId, taskId);
     return newTaskList;
   }
+  return newTaskList;
 };
 
 export { Task, createTask, deleteTask };
