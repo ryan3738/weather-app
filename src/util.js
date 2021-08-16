@@ -37,15 +37,9 @@ function toggleHidden(ids) {
   // }
   console.log('toggleHidden ids', ids);
   for (const id of ids) {
-    console.log('id', id);
     const element = document.getElementById(id);
-    console.log(element);
     if (element) {
-      if (element.classList.contains('hidden')) {
-        element.classList.remove('hidden');
-      } else {
-        element.classList.add('hidden');
-      }
+      element.classList.toggle('hidden');
     }
   }
 }
