@@ -76,10 +76,11 @@ const getDefaultProject = () => {
 
 const createProject = (project) => {
   // Create a project here, add to storage
-  const newProjectsArray = getProjects();
-  const id = getId(newProjectsArray);
+  const newProjectsList = getProjects();
+  const id = getId(newProjectsList);
   const projectObject = new Project(id, project.title);
   addProject(projectObject);
+  return newProjectsList;
 };
 
 const deleteProject = (event) => {
