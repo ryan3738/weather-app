@@ -1,6 +1,12 @@
 import { getId } from './util';
-import { getProject, addTask, removeTask, getTasks } from './storage';
-
+import {
+  getProject,
+  addTask,
+  removeTask,
+  getTasks,
+  getTask,
+  updateTask,
+} from './storage';
 // Make functions with ability to create and delete todos in a project
 
 class Task {
@@ -51,4 +57,16 @@ const deleteTask = (event) => {
   return newTaskList;
 };
 
-export { Task, createTask, deleteTask };
+const toggleTaskComplete = (event) => {
+  // Toggle task complete status
+  const { id: taskId } = event.target.parentElement;
+  const { id: projectId } =
+    event.target.parentElement.parentElement.parentElement;
+  const task = getTask(projectId, taskId);
+  task.complete = !task.complete;
+  const newTaskList = updateTask(projectId, task);
+
+  return newTaskList;
+};
+
+export { Task, createTask, deleteTask, toggleTaskComplete };

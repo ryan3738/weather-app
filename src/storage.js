@@ -36,7 +36,7 @@ const getProjects = () => {
     const storedProjects = JSON.parse(localStoredProjects);
     projects.push(...storedProjects);
   }
-  console.log('PROJECTS', projects);
+  console.log('PROJECTS LOADED...', projects);
   return projects;
 };
 
@@ -84,9 +84,28 @@ const addTask = (projectId, object) => {
   return getTasks(projectId);
 };
 
+const updateTask = (projectId, updatedTask) => {
+  const projects = getProjects();
+  projects.forEach((project) => {
+    if (project.id === parseInt(projectId)) {
+      project.tasks.forEach((task) => {
+        if (task.id === parseInt(updatedTask.id)) {
+          task.title = updatedTask.title;
+          task.description = updatedTask.description;
+          task.dueDate = updatedTask.dueDate;
+          task.complete = updatedTask.complete;
+          task.priority = updatedTask.priority;
+          task.notes = updatedTask.notes;
+        }
+      });
+    }
+  });
+  updateMyProjects(projects);
+  return getTasks(projectId);
+};
+
 const removeTask = (projectId, taskId) => {
   // delete task from project
-  // const project = getProject(projectId);
   const projects = getProjects();
   const projectIndex = getIndexFromId(projectId, projects);
   const project = projects[projectIndex];
@@ -108,4 +127,5 @@ export {
   getTask,
   addTask,
   removeTask,
+  updateTask,
 };

@@ -4,7 +4,7 @@ import { getProjects, getProject, addProject, addTask } from './storage';
 import createForms from './forms';
 import { createButton } from './util';
 import { deleteProject } from './project';
-import { deleteTask } from './task';
+import { deleteTask, toggleTaskComplete } from './task';
 
 //  Create button function with option for large and small buttons
 // Create different ui function components
@@ -70,7 +70,6 @@ const render = (() => {
       'projectsListContainer'
     );
     projects?.forEach((project) => {
-      console.log('project', project);
       projectsListContainer.appendChild(projectContainer(project));
     });
   };
@@ -96,7 +95,11 @@ const render = (() => {
     container.classList.add('task');
     container.id = task.id;
 
-    const completeButton = createButton('✓', 'sm', 'button');
+    const completeButton = createButton(
+      task.complete ? '✓' : '',
+      'sm',
+      'button'
+    );
     completeButton.title = `Toggle ${task.title} Complete`;
     completeButton.classList.add('taskComplete');
     completeButton.onclick = (event) => {
@@ -187,13 +190,10 @@ const render = (() => {
   };
 
   const changeCurrentProject = (id) => {
-    console.log('Changing current project to id:', id);
     const currentProject = getProject(id);
-    console.log('CURRENT PROJECT', currentProject);
 
     const currentProjectContainer =
       document.querySelectorAll('.currentProject');
-    console.log('currentProjectContainer', currentProjectContainer);
     currentProjectContainer.forEach((element) => {
       element.id = id;
     });
