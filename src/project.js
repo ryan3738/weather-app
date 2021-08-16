@@ -20,34 +20,15 @@ const getDefaultProject = () => {
       tasks: [
         {
           id: 0,
-          title: 'Task 1',
-          description: 'This is the first task',
+          title: 'My First Task',
+          description: 'This is the first task for this project',
           dueDate: '2021-08-17',
           priority: 1,
           complete: false,
           notes: 'This is a note',
         },
-        {
-          id: 1,
-          title: 'Task 2',
-          description: 'This is the second task',
-          dueDate: '2021-08-21',
-          priority: 1,
-          complete: false,
-          notes: 'This is a note for task 2',
-        },
-        {
-          id: 3,
-          title: 'Task 3',
-          description: 'This is the third task',
-          dueDate: '2021-08-26',
-          priority: 1,
-          complete: false,
-          notes: 'This is a note for task 3',
-        },
       ],
     },
-    { id: 2, title: 'Default Project 3', tasks: [] },
   ];
 
   const defaultProjects = [];
