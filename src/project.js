@@ -1,17 +1,6 @@
-import { Task } from './task';
-import { getId, formToObject } from './util';
+import { getId } from './util';
 import { addProject, getProjects, removeProject } from './storage';
-import { render } from './renderPage';
 
-// Make functions with ability to create and delete project
-// const defaultProjects = [
-//   { id: 1, title: 'Default Project', tasks: [] },
-//   { id: 2, title: 'Default Project 3', tasks: [] },
-// ];
-// const myProjects = defaultProjects;
-
-// const newTask = new Task();
-// console.log(newTask);
 class Project {
   constructor(id, title = 'New Project', tasks = []) {
     this.id = id;
@@ -20,6 +9,7 @@ class Project {
   }
 }
 
+// Object for default project
 const getDefaultProject = () => {
   // Load default project for testing and new users
   console.log('Loading default project');
