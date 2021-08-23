@@ -1,5 +1,5 @@
 import './style.css';
-import renderPage, { render } from './renderPage';
+import renderPage from './renderPage';
 
 function appPage() {
   return renderPage();

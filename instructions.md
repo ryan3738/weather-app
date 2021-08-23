@@ -1,26 +1,12 @@
 
 
-    1. Your ‘todos’ are going to be objects that you’ll want to dynamically create, which means either using factories or constructors/classes to generate them.
-   
-    2. Brainstorm what kind of properties your todo-items are going to have. At a minimum they should have a title, description, dueDate and priority. You might also want to include notes or even a checklist.
 
-    3. Your todo list should have projects or separate lists of todos. When a user first opens the app, there should be some sort of ‘default’ project to which all of their todos are put. Users should be able to create new projects and choose which project their todos go into.
+    1. Set up a blank HTML document with the appropriate links to your JavaScript and CSS files.
+    2. Write the functions that hit the API. You’re going to want functions that can take a location and return the weather data for that location. For now, just console.log() the information.
+    3. Write the functions that process the JSON data you’re getting from the API and return an object with only the data you require for your app.
+    4. Set up a simple form that will let users input their location and will fetch the weather info (still just console.log() it).
+    5. Display the information on your webpage!
+    6. Add any styling you like!
+    7. Optional: add a ‘loading’ component that displays from the time the form is submitted until the information comes back from the API.
+    8. Push that baby to github and share your solution below!
 
-
-    4. You should separate your application logic (i.e. creating new todos, setting todos as complete, changing todo priority etc.) from the DOM-related stuff, so keep all of those things in separate modules.
-    
-    5. The look of the User Interface is up to you, but it should be able to do the following:
-        1. view all projects
-        2. view all todos in each project (probably just the title and duedate.. perhaps changing color for different priorities)
-        3. expand a single todo to see/edit its details
-        4. delete a todo
-    
-    6. For inspiration, check out the following great todo apps. (look at screenshots, watch their introduction videos etc.)
-        Todoist
-        Things
-        any.do
-    7. Use localStorage to save user’s projects and todos between sessions.
-    8. Since you are probably already using webpack, adding external libraries from npm is a cinch! You might want to consider using the following useful library in your code:
-        1. date-fns gives you a bunch of handy functions for formatting and manipulating dates and times.
-
-Want MORE practice?

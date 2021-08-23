@@ -1,5 +1,3 @@
-import { getDefaultProject } from './project';
-
 //  TODO Create function that decides whether to save to local storage
 
 // TODO Create function that saves project info and returns new myProjects array
@@ -27,7 +25,7 @@ const getProjects = () => {
   // check local storage for projects
   // If no projects exist use default project
   if (!localStoredProjects) {
-    projects.push(...getDefaultProject());
+    // projects.push(...getDefaultProject());
     updateMyProjects(projects);
     console.log('No projects in local storage, using default project');
   }

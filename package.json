@@ -1,7 +1,7 @@
 {
-  "name": "the-todo-list",
+  "name": "weather-app",
   "version": "1.0.0",
-  "description": "Todo list app",
+  "description": "Weather app",
   "main": "src",
   "private": true,
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ryan3738/the-todo-list.git"
+    "url": "git+https://github.com/ryan3738/weather-app.git"
   },
   "keywords": [
     "todo",
@@ -21,9 +21,9 @@
   "author": "Ryan Fraser",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ryan3738/the-todo-list/issues"
+    "url": "https://github.com/ryan3738/weather-app/issues"
   },
-  "homepage": "https://github.com/ryan3738/the-todo-list#readme",
+  "homepage": "https://github.com/ryan3738/weather-app#readme",
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@babel/preset-env": "^7.15.0",
