@@ -1,1 +1,1 @@
-Need to allow for async & await functinoality with webpack
+Need to allow for async & await functionality with webpack
